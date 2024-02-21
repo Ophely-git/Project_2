@@ -1,0 +1,22 @@
+{% extends 'system/base.html' %}
+
+{% block title %}Магазин{% endblock title %}
+
+{% block content %}
+
+<div>
+    {% for cate in category %}
+        <a>{{ cate.title }}</a>
+    {% endfor %}
+</div>
+
+<div>
+    {% for product in products %}
+        <p>{{ product.name }}</p>
+        <p>{{ product.price }}</p>
+        <p>{{ product.in_stock }}</p>
+    <hr>
+    {% endfor %}
+</div>
+
+{% endblock content %}
