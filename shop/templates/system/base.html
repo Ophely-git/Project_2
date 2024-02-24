@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load shop_tags %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,15 +11,33 @@
 <nav class="py-2 bg-body-tertiary border-bottom">
     <div class="container d-flex flex-wrap">
       <ul class="nav me-auto">
-        <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2 active" aria-current="page">Главная</a></li>
-        <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Заглушка</a></li>
+        <li class="nav-item"><a href="{% url 'shop:homepage' %}" class="nav-link link-body-emphasis px-2 active" aria-current="page">Главная</a></li>
+        <li class="nav-item"><a href="http://127.0.0.1:8000/admin" class="nav-link link-body-emphasis px-2">Admin</a></li>
       </ul>
+        <form action="{% url 'shop:search' %}" style="margin-right:50px" class="d-flex" role="search" method="post">
+            {% csrf_token %}
+            <input class="form-control me-2" type="search" placeholder="Поиск" name="search">
+            <button class="btn btn-outline-success" type="submit">Поиск</button>
+        </form>
       <ul class="nav">
         <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Логин</a></li>
         <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Регистрация</a></li>
       </ul>
     </div>
   </nav>
+
+{% category_list %}
+
+<div style="margin-top:-56px; margin-right: 230px; float:right">
+    <h5>
+        <a href="{% url 'shop:cart_detail' %}">Корзина:</a>
+        {% if cart %}
+            {{ cart.cart_count }} товаров.
+        {% else %}
+            Пусто.
+        {% endif %}
+    </h5>
+</div>
 
 {% block content %}
 

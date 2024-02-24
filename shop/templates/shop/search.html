@@ -1,0 +1,22 @@
+{% extends 'system/base.html' %}
+{% load shop_tags %}
+
+{% block title %}{{ def_search }}{% endblock title %}
+
+{% block content %}
+
+<h5 style="margin-left:30px">Результаты поиска "{{ def_search }}".</h5>
+
+<div style="margin:30px;    display:inline-flex">
+    {% for product in products %}
+    <div style="margin-left:30px; justify-content: space-around;">
+        <a href="{{ product.get_absolute_url }}"><img src="{{ product.image.url }}"></a>
+        <ul>
+            <li style="text-decoration-line:None; list-style:None; "><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></li>
+            <li style="list-style:None; text-decoration-line:None">{{ product.price }} руб.</li>
+        </ul>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}
