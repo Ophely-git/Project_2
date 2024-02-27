@@ -1,0 +1,29 @@
+{% extends 'system/base.html' %}
+
+{% load shop_tags %}
+
+{% block title %}Оформление заказа{% endblock title %}
+
+{% block content %}
+
+<div style="margin:30px">
+    <h5>Оформление заказа.</h5>
+    <form method="post">
+        {% csrf_token %}
+        <p>Имя: {{ form.first_name }}</p>
+        <p>Фамилия: {{ form.last_name }}</p>
+        <p>Емейл: {{ form.email }}</p>
+        <p>Город: {{ form.city }}</p>
+        <p>Адрес: {{ form.address }}</p>
+        <button type="submit">Оформить</button>
+    </form>
+    <h5 style="margin-top:20px">К оплате: {{ cart.get_total_price }} руб.</h5>
+    <ul>
+        {% for item in cart %}
+            <li>{{ item.product.name }}, кол-во {{ item.quantity }}. </li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+{% endblock content %}

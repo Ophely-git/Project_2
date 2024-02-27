@@ -1,0 +1,55 @@
+{% extends 'system/base.html' %}
+{% load shop_tags %}
+{% load mptt_tags %}
+
+{% block title %}Магазин{% endblock title %}
+
+{% block content %}
+
+{% if category %}
+    <h5 style="margin-left:30px">{{ category }}</h5>
+{% else %}
+    <h5 style="margin-left:30px">Все товары</h5>
+{% endif %}
+
+<div style="margin:30px; display: flex; justify-content: space-between; align-items: center;">
+    {% for product in products %}
+    <div style="margin-left:30px; max-width: 960px; width:100%">
+        <a href="{{ product.get_absolute_url }}"><img src="{{ product.image.url }}"></a>
+        <ul>
+            <li style="text-decoration-line:None; list-style:None; "><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></li>
+            <li style="list-style:None; text-decoration-line:None">{{ product.price }} руб.</li>
+        </ul>
+    </div>
+    {% endfor %}
+</div>
+
+<h5 style="margin-left:30px">Новинки</h5>
+<div style="display:flex">
+    {% newest_products as products %}
+        {% for item in products %}
+            <div style="margin-left:30px; justify-content: space-around;">
+                <a href="{{ item.get_absolute_url }}"><img src="{{ item.image.url }}"></a>
+                <ul>
+                    <li style="text-decoration:None; list-style:None; "><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></li>
+                    <li style="list-style:None; text-decoration:None">{{ item.price }} руб.</li>
+                </ul>
+            </div>
+        {% endfor %}
+</div>
+
+<h5 style="margin-left:30px">Популярное</h5>
+<div style="display:flex">
+    {% popular_products as products %}
+        {% for item in products %}
+            <div style="margin-left:30px; justify-content: space-around;">
+                <a href="{{ item.get_absolute_url }}"><img src="{{ item.image.url }}"></a>
+                <ul>
+                    <li style="text-decoration:None; list-style:None; "><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></li>
+                    <li style="list-style:None; text-decoration:None">{{ item.price }} руб.</li>
+                </ul>
+            </div>
+        {% endfor %}
+</div>
+
+{% endblock content %}
