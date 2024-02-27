@@ -1,6 +1,21 @@
+{% load mptt_tags %}
 <div style="margin:30px">
     <a style="margin-left:20px;text-decoration-line:None" href="{% url 'shop:homepage' %}">Все</a>
     {% for category in categories %}
         <a style="margin-left:20px; text-decoration-line:None" href="{{ category.get_absolute_url }}">{{ category.title }}</a>
     {% endfor %}
 </div>
+
+<ul>
+    {% recursetree categories %}
+        <li>
+            <a href="{{ node.get_absolute_url }}">{{ node.title }}</a>
+            {% if not node.is_leaf_node %}
+                <ul>
+                    {{ children }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endrecursetree %}
+</ul>
+

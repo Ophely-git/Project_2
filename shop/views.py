@@ -39,8 +39,6 @@ def product_detail(request, product_slug):
 
 def cart_detail(request):
     cart = Cart(request)
-    for i in cart:
-        print(i['product'])
     for item in cart:
         item['update_quantity_form'] = CartAddProductForm(initial={
             'quantity': item['quantity'],

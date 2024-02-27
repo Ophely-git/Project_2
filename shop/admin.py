@@ -1,12 +1,14 @@
 from django.contrib import admin
+from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
 
 from .models import Category, Product, Order, OrderProduct
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['title']
+class CategoryAdmin(DraggableMPTTAdmin):
+    list_display = ['title', 'slug']
     prepopulated_fields = {'slug': ('title',)}
+    list_display_links = ('title', 'slug')
 
 
 @admin.register(Product)
