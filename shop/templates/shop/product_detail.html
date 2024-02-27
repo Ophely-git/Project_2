@@ -1,0 +1,32 @@
+{% extends 'system/base.html' %}
+{% load shop_tags %}
+
+{% block title %}{{ product.name }}{% endblock title %}
+
+{% block content %}
+
+<div style="margin:30px">
+    <img src="{{ product.image.url }}">
+    <p>{{ product.category }}</p>
+    <h4 style="color:gray">{{ product.name }}</h4>
+    <h4>Описание</h4>
+    <p>{{ product.description| linebreaks }}</p>
+    <h5>Цена :{{ product.price }} руб.</h5>
+    {% if product.in_stock == 'NO' %}
+        <p style="color:red">Нет в наличии</p>
+    {% else %}
+        <p style="color:green">В наличии</p>
+    {% endif %}
+</div>
+{% if product.in_stock == 'YES' %}
+    <div style="margin:30px">
+        <form action="{% url 'shop:cart_add' product.pk %}" method="post">
+            {% csrf_token %}
+            {{ add_product_form }}
+            <input type="submit" value="Добавить в корзину">
+        </form>
+    </div>
+{% endif %}
+
+
+{% endblock content %}

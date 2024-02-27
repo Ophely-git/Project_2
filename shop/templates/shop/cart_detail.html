@@ -1,0 +1,39 @@
+{% extends 'system/base.html' %}
+{% load shop_tags %}
+
+{% block title %}Корзина{% endblock title %}
+
+{% block content %}
+
+<div style="margin-left:30px">
+<h4 style="text-align:center">Корзина</h4>
+
+<h5>Ваши товары:</h5>
+</div>
+{% for item in cart %}
+    <div style="display:inline-flex">
+        <ul>
+            <li style="list-style:None"><img src="{{ item.product.image.url }}"></li>
+            <li style="list-style:None"><a href="{{ item.product.get_absolute_url }}">{{ item.product.name }}</a></li>
+            <form method="post" action="{% url 'shop:cart_add' item.product.pk %}">
+                {% csrf_token %}
+                Кол-во: {{ item.update_quantity_form.quantity }}
+                {{ item.update_quantity_form.override }}
+                <input type="submit" value="Выбрать">
+            </form>
+<!--            <li style="list-style:None">Кол-во: {{ item.quantity }}</li>-->
+            <li style="list-style:None">Цена: {{ item.total_price }} руб.</li>
+            <li style="list-style:None"><a href="{% url 'shop:cart_remove' item.product.pk %}">Убрать</a></li>
+        </ul>
+    </div>
+{% endfor %}
+
+<div style="margin:30px">
+    <h5>Общая стоимость: {{ cart.get_total_price }} руб.</h5>
+</div>
+
+<div style="margin:30px">
+    <button type="button"><a style="text-decoration:None; color:black" href="{% url 'shop:order_create' %}">Оформить заказ</a></button>
+</div>
+
+{% endblock content %}

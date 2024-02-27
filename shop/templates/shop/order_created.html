@@ -1,0 +1,15 @@
+{% extends 'system/base.html' %}
+{% load shop_tags %}
+
+{% block title %}Оформление заказа{% endblock title %}
+
+{% block content %}
+
+<div style="margin:30px">
+    <h5>Ваш заказ оформлен. Номер заказа {{ order.pk }}.</h5>
+    <h5>Благодарим за покупку</h5>
+    <button type="submit"><a style="text-decoration:None; color:black" href="{% url 'shop:homepage' %}">Вернуться</a></button>
+</div>
+
+
+{% endblock content %}
