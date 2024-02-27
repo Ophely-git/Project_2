@@ -10,6 +10,7 @@ login
   {% csrf_token %}
   {{ form.as_p }}
   <button type="submit">Login</button>
+  <button onclick="location.href='{% url 'user:password_reset' %}'" type="button">Foreget pass</button>
 </form>
 
 {% endblock %}
