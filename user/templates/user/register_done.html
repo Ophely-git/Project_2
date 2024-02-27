@@ -1,0 +1,12 @@
+{% extends 'system/base.html' %}
+
+{% block title %} Let's login {% endblock %}
+
+
+{% block content %}
+Register done ✅
+
+Now U can authorization with
+<a href="{% url 'user:site_login' %}" class="nav-link link-body-emphasis px-2">Login</a>
+
+{% endblock %}

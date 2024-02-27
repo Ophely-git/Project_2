@@ -1,0 +1,17 @@
+{% extends 'system/base.html' %}
+
+{% block title %} Let's login {% endblock %}
+
+
+{% block content %}
+Profile
+
+<p><img src="{{ request.user.img.url }}" alt="Aleq" width="200" height="185"/></p>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Edit</button>
+  <a href="{% url 'user:password_change' %}" class="nav-link link-body-emphasis px-2">Reset password</a>
+</form>
+
+{% endblock %}
